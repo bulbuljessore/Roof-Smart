@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:'Plus Jakarta Sans',Helvetica,sans-serif;-webkit-font-smoothing:antialiased;background:#0C0C0B}
+  a{color:#D69B22;text-decoration:none}
+  a:hover{color:#E9B24A}
+  input,textarea,button{font-family:inherit}
+  @keyframes rsTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes rsRise{from{opacity:0;transform:translateY(.5em)}to{opacity:1;transform:translateY(0)}}
+  input[type=range]{-webkit-appearance:none;appearance:none;background:transparent}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:34px;border-radius:50%;background:#D69B22;border:3px solid #F7F5F1;cursor:ew-resize;box-shadow:0 2px 12px rgba(0,0,0,.4)}
+  input[type=range]::-webkit-slider-runnable-track{height:34px}
+</style>
+</helmet>
+
+<div style="container-type:inline-size;width:100%;background:#F7F5F1;color:#100F0E;overflow-x:hidden">
+
+  <!-- header + scroll progress -->
+  <header style="position:sticky;top:0;z-index:20;background:rgba(12,12,11,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(247,245,241,.14)">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 clamp(16px,3.2cqw,48px);height:clamp(60px,5.6cqw,82px)">
+      <img src="logo-onDark.png" alt="Roofsmart Roofing" style="height:clamp(23px,2.5cqw,36px);width:auto;display:block;flex:0 0 auto">
+      <nav style="overflow:hidden;display:flex;align-items:center;gap:clamp(14px,2.3cqw,32px);max-width:max(0px, min(720px, (100cqw - 899px) * 9999))">
+        <a href="#colour" style="color:rgba(247,245,241,.72);font-size:14px;font-weight:500;white-space:nowrap">Colours</a>
+        <a href="#services" style="color:rgba(247,245,241,.72);font-size:14px;font-weight:500;white-space:nowrap">Services</a>
+        <a href="#work" style="color:rgba(247,245,241,.72);font-size:14px;font-weight:500;white-space:nowrap">Work</a>
+        <a href="#process" style="color:rgba(247,245,241,.72);font-size:14px;font-weight:500;white-space:nowrap">Process</a>
+        <a href="#faq" style="color:rgba(247,245,241,.72);font-size:14px;font-weight:500;white-space:nowrap">FAQ</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:clamp(10px,1.4cqw,18px);flex:0 0 auto">
+        <a href="tel:0405285207" style="color:#F7F5F1;font-weight:700;font-size:clamp(14px,1.3cqw,17px);white-space:nowrap">0405 285 207</a>
+        <a href="#quote" style="background:#D69B22;color:#100F0E;font-weight:700;font-size:clamp(13px,1.1cqw,15px);padding:clamp(10px,1.05cqw,14px) clamp(14px,1.6cqw,24px);border-radius:2px" style-hover="background:#F7F5F1">Free quote</a>
+        <div onClick="{{ toggleMenu }}" role="button" aria-label="Menu" style="overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:5px;height:40px;cursor:pointer;max-width:max(0px, min(24px, (900px - 100cqw) * 9999))">
+          <span style="width:24px;height:2px;background:{{ burgerColor }};display:block;transition:background .2s"></span>
+          <span style="width:24px;height:2px;background:{{ burgerColor }};display:block;transition:background .2s"></span>
+        </div>
+      </div>
+    </div>
+    <div style="height:2px;background:rgba(247,245,241,.1)">
+      <div style="height:2px;background:#D69B22;width:{{ progressPct }};transition:width .12s linear"></div>
+    </div>
+  </header>
+
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:sticky;top:clamp(62px,5.6cqw,84px);z-index:19;background:#0C0C0B;border-bottom:1px solid rgba(247,245,241,.14);padding:6px clamp(16px,3.2cqw,48px) 18px;display:flex;flex-direction:column">
+      <a href="#colour" onClick="{{ closeMenu }}" style="color:#F7F5F1;font-size:19px;font-weight:600;padding:15px 0;border-bottom:1px solid rgba(247,245,241,.12)">Colours</a>
+      <a href="#services" onClick="{{ closeMenu }}" style="color:#F7F5F1;font-size:19px;font-weight:600;padding:15px 0;border-bottom:1px solid rgba(247,245,241,.12)">Services</a>
+      <a href="#work" onClick="{{ closeMenu }}" style="color:#F7F5F1;font-size:19px;font-weight:600;padding:15px 0;border-bottom:1px solid rgba(247,245,241,.12)">Work</a>
+      <a href="#process" onClick="{{ closeMenu }}" style="color:#F7F5F1;font-size:19px;font-weight:600;padding:15px 0;border-bottom:1px solid rgba(247,245,241,.12)">Process</a>
+      <a href="#faq" onClick="{{ closeMenu }}" style="color:#F7F5F1;font-size:19px;font-weight:600;padding:15px 0">FAQ</a>
+    </div>
+  </sc-if>
+
+  <!-- HERO with live colour wash -->
+  <section id="colour" style="position:relative;background:#0C0C0B;padding:clamp(30px,4.4cqw,62px) clamp(16px,3.2cqw,48px) 0;overflow:hidden">
+    <img src="img/hero-two-storey-colorbond.png" alt="Dark Colorbond roof on a two-storey Sutherland Shire home" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+    <div style="position:absolute;inset:0;background:{{ heroWash }};mix-blend-mode:multiply;opacity:.72;transition:background 1.1s cubic-bezier(.2,.7,.2,1)"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,7,.96) 2%,rgba(8,8,7,.66) 44%,rgba(8,8,7,.34) 100%)"></div>
+
+    <div style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(26px,3.4cqw,64px);align-items:end;min-height:clamp(440px,52cqw,700px);padding-bottom:clamp(26px,3cqw,48px)">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:clamp(16px,2cqw,28px);animation:rsRise .8s cubic-bezier(.2,.7,.2,1) both">
+          <span style="width:clamp(20px,2.4cqw,34px);height:2px;background:#D69B22"></span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.85cqw,11px);letter-spacing:.2em;text-transform:uppercase;color:#E9B24A">Coordinating your project from start to completion</span>
+        </div>
+        <h1 style="margin:0;font-size:clamp(38px,6.4cqw,94px);line-height:.92;font-weight:800;letter-spacing:-.045em;color:#F7F5F1">
+          <span style="display:inline-block;animation:rsRise .9s cubic-bezier(.2,.7,.2,1) .05s both">Fifteen</span>
+          <span style="display:inline-block;animation:rsRise .9s cubic-bezier(.2,.7,.2,1) .12s both">years</span>
+          <span style="display:inline-block;animation:rsRise .9s cubic-bezier(.2,.7,.2,1) .19s both">of</span>
+          <span style="display:inline-block;animation:rsRise .9s cubic-bezier(.2,.7,.2,1) .26s both">Shire</span>
+          <span style="display:inline-block;animation:rsRise .9s cubic-bezier(.2,.7,.2,1) .33s both">roofs.</span>
+          <span style="display:inline-block;color:#D69B22;animation:rsRise .9s cubic-bezier(.2,.7,.2,1) .42s both">One</span>
+          <span style="display:inline-block;color:#D69B22;animation:rsRise .9s cubic-bezier(.2,.7,.2,1) .49s both">crew,</span>
+          <span style="display:inline-block;color:#D69B22;animation:rsRise .9s cubic-bezier(.2,.7,.2,1) .56s both">start</span>
+          <span style="display:inline-block;color:#D69B22;animation:rsRise .9s cubic-bezier(.2,.7,.2,1) .63s both">to</span>
+          <span style="display:inline-block;color:#D69B22;animation:rsRise .9s cubic-bezier(.2,.7,.2,1) .70s both">finish.</span>
+        </h1>
+        <p style="margin:clamp(18px,2cqw,30px) 0 0;max-width:520px;font-size:clamp(15px,1.35cqw,19px);line-height:1.62;color:rgba(247,245,241,.74);animation:rsRise 1s cubic-bezier(.2,.7,.2,1) .7s both">Metal roofing, wall cladding and extensions in Colorbond and Trimdek. Dan quotes it, Dan is on the roof, and you get his mobile — not a call centre.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(22px,2.6cqw,38px);animation:rsRise 1s cubic-bezier(.2,.7,.2,1) .8s both">
+          <a href="#quote" style="background:#D69B22;color:#100F0E;font-weight:700;font-size:clamp(14px,1.3cqw,17px);padding:clamp(15px,1.5cqw,20px) clamp(20px,2.2cqw,32px);border-radius:2px;transition:transform .25s,background .25s" style-hover="background:#F7F5F1;transform:translateY(-2px)">Book a free measure</a>
+          <a href="#work" style="border:1px solid rgba(247,245,241,.3);color:#F7F5F1;font-weight:600;font-size:clamp(14px,1.3cqw,17px);padding:clamp(14px,1.4cqw,19px) clamp(18px,2cqw,28px);border-radius:2px;transition:border-color .25s,color .25s" style-hover="border-color:#D69B22;color:#D69B22">See finished roofs</a>
+        </div>
+      </div>
+
+      <!-- colour selector -->
+      <div style="background:rgba(12,12,11,.62);border:1px solid rgba(247,245,241,.16);backdrop-filter:blur(6px);padding:clamp(18px,2cqw,28px);animation:rsRise 1s cubic-bezier(.2,.7,.2,1) .55s both">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:clamp(14px,1.6cqw,20px)">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,11px);letter-spacing:.18em;text-transform:uppercase;color:rgba(247,245,241,.55)">Try a roof colour</span>
+          <span style="font-size:clamp(14px,1.25cqw,17px);font-weight:700;color:#F7F5F1">{{ colourName }}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(56px,1fr));gap:8px">
+          <sc-for list="{{ palette }}" as="c" hint-placeholder-count="6">
+            <div onClick="{{ c.pick }}" title="{{ c.name }}" style="height:clamp(48px,5cqw,68px);background:{{ c.hex }};border:2px solid {{ c.ring }};cursor:pointer;transition:transform .25s,border-color .25s" style-hover="transform:translateY(-3px)"></div>
+          </sc-for>
+        </div>
+        <p style="margin:clamp(14px,1.6cqw,20px) 0 0;font-size:clamp(12px,1.05cqw,14px);line-height:1.55;color:rgba(247,245,241,.6)">Colours shown are indicative only. We bring real Colorbond samples to the measure so you can hold them against the house.</p>
+      </div>
+    </div>
+
+    <!-- ticker -->
+    <div style="position:relative;display:flex;overflow:hidden;border-top:1px solid rgba(247,245,241,.16);padding:clamp(13px,1.5cqw,20px) 0">
+      <div style="display:flex;gap:clamp(24px,3cqw,44px);white-space:nowrap;animation:rsTicker 26s linear infinite">
+        <sc-for list="{{ ticker }}" as="t" hint-placeholder-count="12">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.9cqw,12px);letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.6)">{{ t }}</span>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- since 2011 : inverted band -->
+  <section style="background:#EFEBE3;padding:clamp(44px,5.6cqw,104px) clamp(16px,3.2cqw,48px)" data-comment-anchor="969392fa-statement">
+    <div data-reveal="1" style="display:flex;align-items:center;gap:12px;margin-bottom:clamp(20px,2.4cqw,34px)">
+      <span style="width:clamp(20px,2.4cqw,34px);height:2px;background:#8C6210"></span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.85cqw,11px);letter-spacing:.2em;text-transform:uppercase;color:#8C6210">Since 2011</span>
+    </div>
+    <div data-reveal="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(24px,3.4cqw,64px);align-items:end;margin-bottom:clamp(30px,3.6cqw,60px)">
+      <div>
+        <h2 style="margin:0 0 clamp(16px,1.8cqw,26px);font-size:clamp(27px,3.8cqw,58px);line-height:1.04;font-weight:700;letter-spacing:-.04em;text-wrap:pretty">Precision. Punctuality. Professionalism. <span style="color:#8C6210">{{ yearCount }} years</span> of it.</h2>
+        <p style="margin:0;font-size:clamp(15px,1.3cqw,19px);line-height:1.62;color:#514E47;max-width:560px">Roofsmart Roofing is a metal roofing business based in the Sutherland Shire and Illawarra. Established in 2011, we take a comprehensive approach to detail — and every job still starts with a free measure and quote.</p>
+      </div>
+      <img src="img/roof-detail-tile-to-metal.png" alt="New Colorbond roof flashed into the original tiled section of a Shire home" style="width:100%;height:clamp(200px,24cqw,360px);object-fit:cover;display:block">
+    </div>
+    <div data-reveal="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(1px,.2cqw,2px);background:#EFEBE3;border:1px solid #DAD6CD">
+      <sc-for list="{{ facts }}" as="x" hint-placeholder-count="4">
+        <div style="background:#EFEBE3;outline:1px solid #DAD6CD;padding:clamp(20px,2.2cqw,34px);transition:background .25s" style-hover="background:#F7F5F1">
+          <div style="font-size:clamp(22px,2.4cqw,38px);font-weight:800;letter-spacing:-.04em;line-height:1">{{ x.k }}</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.82cqw,11px);letter-spacing:.15em;text-transform:uppercase;color:#5E5A51;margin-top:12px">{{ x.v }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- services : selector + panel -->
+  <section id="services" style="background:#100F0E;padding:clamp(46px,6cqw,110px) clamp(16px,3.2cqw,48px)">
+    <div data-reveal="1" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:clamp(26px,3cqw,48px)">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.85cqw,11px);letter-spacing:.2em;text-transform:uppercase;color:#E9B24A;margin-bottom:14px">What we do</div>
+        <h2 style="margin:0;font-size:clamp(28px,3.7cqw,56px);line-height:1;font-weight:800;letter-spacing:-.04em;color:#F7F5F1">Three things, done properly.</h2>
+      </div>
+      <p style="margin:0;font-size:clamp(14px,1.15cqw,16px);line-height:1.6;color:rgba(247,245,241,.6);max-width:330px">Quality work, great rates, free measure and quotes. Pick one to see how we do it.</p>
+    </div>
+    <div data-reveal="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:clamp(20px,2.6cqw,56px);align-items:start">
+      <div style="border-top:1px solid rgba(247,245,241,.18)">
+        <sc-for list="{{ services }}" as="s" hint-placeholder-count="3">
+          <div onClick="{{ s.pick }}" style="border-bottom:1px solid rgba(247,245,241,.18);padding:clamp(18px,2cqw,28px) clamp(4px,.8cqw,12px);cursor:pointer;background:{{ s.bg }};transition:background .3s">
+            <div style="display:flex;align-items:baseline;gap:clamp(12px,1.6cqw,22px)">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.9cqw,12px);letter-spacing:.16em;color:{{ s.accent }};transition:color .3s">{{ s.n }}</span>
+              <span style="font-size:clamp(22px,2.4cqw,38px);font-weight:700;letter-spacing:-.035em;color:{{ s.fg }};transition:color .3s">{{ s.t }}</span>
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.78cqw,11px);letter-spacing:.14em;text-transform:uppercase;color:rgba(247,245,241,.62);margin-top:8px;padding-left:clamp(28px,3.4cqw,52px)">{{ s.tag }}</div>
+            <div style="height:2px;background:#D69B22;width:{{ s.barW }};margin-top:clamp(12px,1.4cqw,18px);transition:width .5s cubic-bezier(.2,.7,.2,1)"></div>
+          </div>
+        </sc-for>
+      </div>
+      <div>
+        <div style="border-top:3px solid #D69B22;overflow:hidden">
+          <img src="{{ activeSvc.img }}" alt="{{ activeSvc.alt }}" style="width:100%;height:clamp(220px,26cqw,420px);object-fit:cover;display:block">
+        </div>
+        <p style="margin:clamp(18px,2cqw,28px) 0 clamp(16px,1.8cqw,24px);font-size:clamp(16px,1.6cqw,24px);line-height:1.45;letter-spacing:-.02em;color:#F7F5F1;max-width:520px">{{ activeSvc.b }}</p>
+        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:clamp(9px,1cqw,13px)">
+          <sc-for list="{{ activeSvc.points }}" as="p" hint-placeholder-count="3">
+            <li style="display:flex;gap:12px;font-size:clamp(14px,1.15cqw,16px);color:rgba(247,245,241,.78);border-bottom:1px solid rgba(247,245,241,.12);padding-bottom:clamp(9px,1cqw,13px)"><span style="color:#D69B22">—</span>{{ p }}</li>
+          </sc-for>
+        </ul>
+        <a href="#quote" style="display:inline-block;margin-top:clamp(20px,2.2cqw,30px);background:#D69B22;color:#100F0E;font-weight:700;font-size:clamp(14px,1.2cqw,16px);padding:clamp(14px,1.4cqw,18px) clamp(18px,2cqw,28px);transition:background .25s,transform .25s" style-hover="background:#F7F5F1;transform:translateY(-2px)">Quote this work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- work index with hover preview -->
+  <section id="work" style="padding:clamp(46px,6cqw,110px) clamp(16px,3.2cqw,48px)">
+    <div data-reveal="1" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:clamp(22px,2.6cqw,40px)">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.85cqw,11px);letter-spacing:.2em;text-transform:uppercase;color:#5E5A51;margin-bottom:14px">Finished work</div>
+        <h2 style="margin:0;font-size:clamp(28px,3.7cqw,56px);line-height:1;font-weight:800;letter-spacing:-.04em">Hover a job to see it.</h2>
+      </div>
+      <a href="#" style="color:#100F0E;font-weight:600;font-size:clamp(13px,1.15cqw,15px);border-bottom:2px solid #D69B22;padding-bottom:5px" style-hover="color:#8C6210">Full gallery</a>
+    </div>
+    <div data-reveal="1">
+      <sc-for list="{{ jobs }}" as="j" hint-placeholder-count="6">
+        <div onMouseEnter="{{ j.enter }}" onMouseLeave="{{ j.leave }}" style="border-top:1px solid #DAD6CD;cursor:pointer;background:{{ j.rowBg }};transition:background .3s">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(50%,140px),1fr));gap:4px clamp(12px,2cqw,32px);align-items:baseline;padding:clamp(14px,1.6cqw,24px) clamp(8px,1cqw,16px)">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.85cqw,12px);color:#8C6210">{{ j.n }}</span>
+            <span style="font-size:clamp(17px,1.75cqw,26px);font-weight:700;letter-spacing:-.025em">{{ j.t }}</span>
+            <span style="font-size:clamp(13px,1.05cqw,15px);color:#514E47">{{ j.material }}</span>
+          </div>
+          <div style="overflow:hidden;height:{{ j.previewH }};transition:height .45s cubic-bezier(.2,.7,.2,1)">
+            <div style="margin:0 clamp(8px,1cqw,16px) clamp(14px,1.6cqw,22px)">
+              <img src="{{ j.img }}" alt="{{ j.alt }}" style="width:100%;height:clamp(160px,20cqw,300px);object-fit:cover;display:block">
+            </div>
+          </div>
+        </div>
+      </sc-for>
+      <div style="border-top:1px solid #DAD6CD"></div>
+    </div>
+  </section>
+
+  <!-- before / after slider -->
+  <section style="background:#EFEBE3;padding:clamp(46px,6cqw,110px) clamp(16px,3.2cqw,48px)">
+    <div data-reveal="1" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:clamp(20px,2.4cqw,36px)">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.85cqw,11px);letter-spacing:.2em;text-transform:uppercase;color:#5E5A51;margin-bottom:14px">Before &amp; after</div>
+        <h2 style="margin:0;font-size:clamp(28px,3.7cqw,56px);line-height:1;font-weight:800;letter-spacing:-.04em">Drag the handle.</h2>
+      </div>
+      <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,11px);letter-spacing:.14em;text-transform:uppercase;color:#5E5A51;max-width:280px">Original tiled roof stripped and replaced in Colorbond — one home, one week</p>
+    </div>
+    <div data-reveal="1" style="position:relative;height:clamp(260px,36cqw,560px);overflow:hidden;background:#DCD7CC">
+      <img src="img/brick-home-after-metal.png" alt="The same brick home after its Colorbond re-roof" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+      <span style="position:absolute;right:18px;bottom:18px;font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,11px);letter-spacing:.14em;text-transform:uppercase;color:#F7F5F1;background:rgba(12,12,11,.72);padding:7px 11px">After — Colorbond</span>
+      <div style="position:absolute;inset:0;width:{{ splitPct }};overflow:hidden">
+        <img src="img/brick-home-before-tile.png" alt="A brick home with its original weathered tiled roof" style="position:absolute;top:0;left:0;height:100%;width:{{ beforeW }};max-width:none;object-fit:cover;display:block">
+        <span style="position:absolute;left:18px;top:18px;font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,11px);letter-spacing:.14em;text-transform:uppercase;color:#F7F5F1;background:rgba(12,12,11,.72);padding:7px 11px">Before — tile</span>
+      </div>
+      <div style="position:absolute;top:0;bottom:0;left:{{ splitPct }};width:3px;background:#D69B22;transform:translateX(-3px);pointer-events:none"></div>
+      <input type="range" min="0" max="100" value="{{ split }}" onChange="{{ setSplit }}" onInput="{{ setSplit }}" aria-label="Before and after" style="position:absolute;left:0;right:0;bottom:calc(50% - 17px);width:100%;height:34px;margin:0;cursor:ew-resize">
+    </div>
+  </section>
+
+  <!-- process : clean numbered list -->
+  <section id="process" style="padding:clamp(46px,6cqw,110px) clamp(16px,3.2cqw,48px)">
+    <div data-reveal="1" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:clamp(26px,3cqw,50px)">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.85cqw,11px);letter-spacing:.2em;text-transform:uppercase;color:#5E5A51;margin-bottom:14px">How a job runs</div>
+        <h2 style="margin:0;font-size:clamp(28px,3.7cqw,56px);line-height:1;font-weight:800;letter-spacing:-.04em">Quote to clean-up in five moves.</h2>
+      </div>
+      <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,11px);letter-spacing:.14em;text-transform:uppercase;color:#5E5A51;max-width:270px">One phone call, one visit, three to five days on the tools</p>
+    </div>
+    <div data-reveal="1" style="border-top:1px solid #DAD6CD">
+      <sc-for list="{{ steps }}" as="s" hint-placeholder-count="5">
+        <div style="display:grid;grid-template-columns:clamp(52px,7cqw,120px) minmax(0,1fr);gap:clamp(14px,2.4cqw,40px);align-items:baseline;padding:clamp(18px,2.2cqw,32px) clamp(4px,.8cqw,12px);border-bottom:1px solid #DAD6CD;transition:background .25s" style-hover="background:#EFEBE3">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(12px,1.1cqw,15px);letter-spacing:.14em;color:#8C6210">{{ s.n }}</span>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:clamp(6px,1.4cqw,32px);align-items:baseline">
+            <h3 style="margin:0;font-size:clamp(19px,1.9cqw,28px);font-weight:700;letter-spacing:-.03em">{{ s.t }}</h3>
+            <p style="margin:0;font-size:clamp(14px,1.1cqw,16px);line-height:1.6;color:#514E47">{{ s.b }}</p>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- reviews : rotator -->
+  <section style="background:#100F0E;padding:clamp(46px,6cqw,110px) clamp(16px,3.2cqw,48px)">
+    <div data-reveal="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:clamp(24px,3.4cqw,64px);align-items:start">
+      <div>
+        <h2 style="margin:0 0 clamp(20px,2.4cqw,34px);font-size:clamp(26px,3.4cqw,50px);line-height:1;font-weight:800;letter-spacing:-.04em;color:#F7F5F1">Straight from the driveway.</h2>
+        <div style="display:flex;align-items:center;gap:clamp(14px,1.6cqw,22px)">
+          <div onClick="{{ revPrev }}" role="button" aria-label="Previous review" style="width:clamp(46px,4.4cqw,60px);height:clamp(46px,4.4cqw,60px);border:1px solid rgba(247,245,241,.28);display:flex;align-items:center;justify-content:center;color:#F7F5F1;font-size:20px;cursor:pointer;transition:border-color .25s,color .25s,background .25s" style-hover="border-color:#D69B22;color:#100F0E;background:#D69B22">←</div>
+          <div onClick="{{ revNext }}" role="button" aria-label="Next review" style="width:clamp(46px,4.4cqw,60px);height:clamp(46px,4.4cqw,60px);border:1px solid rgba(247,245,241,.28);display:flex;align-items:center;justify-content:center;color:#F7F5F1;font-size:20px;cursor:pointer;transition:border-color .25s,color .25s,background .25s" style-hover="border-color:#D69B22;color:#100F0E;background:#D69B22">→</div>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(11px,1cqw,13px);letter-spacing:.16em;color:rgba(247,245,241,.6)">{{ revLabel }}</span>
+        </div>
+        <p style="margin:clamp(22px,2.4cqw,34px) 0 0;font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.78cqw,10px);letter-spacing:.14em;text-transform:uppercase;color:rgba(247,245,241,.62);max-width:250px">Placeholder quotes — swap for real Google reviews before launch</p>
+      </div>
+      <div style="min-height:clamp(240px,24cqw,380px);display:flex;flex-direction:column;justify-content:space-between;border-top:3px solid #D69B22;padding-top:clamp(20px,2.4cqw,34px)">
+        <p style="margin:0;font-size:clamp(21px,2.6cqw,42px);line-height:1.16;font-weight:600;letter-spacing:-.032em;color:#F7F5F1;opacity:{{ revFade }};transition:opacity .35s">{{ review.q }}</p>
+        <div style="margin-top:clamp(22px,2.4cqw,34px)">
+          <div style="font-size:clamp(15px,1.3cqw,18px);font-weight:700;color:#F7F5F1">{{ review.n }}</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,11px);letter-spacing:.14em;text-transform:uppercase;color:rgba(247,245,241,.5);margin-top:6px">{{ review.m }}</div>
+          <div style="display:flex;gap:6px;margin-top:clamp(18px,2cqw,26px)">
+            <sc-for list="{{ revDots }}" as="d" hint-placeholder-count="3">
+              <div onClick="{{ d.pick }}" style="height:3px;width:clamp(38px,4cqw,64px);background:{{ d.bg }};cursor:pointer;transition:background .3s"></div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- areas : searchable coverage -->
+  <section style="padding:clamp(46px,6cqw,110px) clamp(16px,3.2cqw,48px)">
+    <div data-reveal="1" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:clamp(26px,3cqw,44px)">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.85cqw,11px);letter-spacing:.2em;text-transform:uppercase;color:#5E5A51;margin-bottom:14px">Where we work</div>
+        <h2 style="margin:0;font-size:clamp(26px,3.4cqw,50px);line-height:1;font-weight:800;letter-spacing:-.04em">Shire first, Illawarra close behind.</h2>
+      </div>
+      <label style="display:block;flex:1 1 260px;max-width:400px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,11px);letter-spacing:.16em;text-transform:uppercase;color:#5E5A51">Check your suburb</span>
+        <input value="{{ areaQuery }}" onInput="{{ setArea }}" placeholder="Start typing…" style="width:100%;margin-top:10px;background:transparent;border:0;border-bottom:2px solid #100F0E;font-size:clamp(17px,1.6cqw,22px);font-weight:600;padding:10px 0;outline:none;color:#100F0E">
+      </label>
+    </div>
+    <div data-reveal="1">
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(10px,1.2cqw,16px)">
+        <sc-for list="{{ areas }}" as="a" hint-placeholder-count="10">
+          <div style="border:1px solid #DAD6CD;padding:clamp(12px,1.3cqw,18px) clamp(14px,1.6cqw,22px);display:flex;align-items:baseline;gap:10px;transition:border-color .25s,background .25s" style-hover="border-color:#D69B22;background:#EFEBE3">
+            <span style="font-size:clamp(19px,2.1cqw,32px);font-weight:700;letter-spacing:-.035em">{{ a.n }}</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,11px);letter-spacing:.1em;color:#5E5A51">{{ a.r }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <img src="img/illawarra-coastal-home.png" alt="Metal roof on a coastal Illawarra home above the beach" style="width:100%;height:clamp(200px,26cqw,400px);object-fit:cover;display:block;margin-top:clamp(22px,2.6cqw,36px)">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;margin-top:clamp(16px,1.8cqw,24px);border-top:1px solid #DAD6CD;padding-top:clamp(16px,1.8cqw,24px)">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,11px);letter-spacing:.14em;text-transform:uppercase;color:#5E5A51">{{ areaCount }}</span>
+        <span style="font-size:clamp(14px,1.15cqw,17px);color:#514E47;max-width:520px">{{ areaNote }}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- faq -->
+  <section id="faq" style="background:#EFEBE3;padding:clamp(46px,6cqw,110px) clamp(16px,3.2cqw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:clamp(26px,4cqw,64px)">
+    <div data-reveal="1">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.85cqw,11px);letter-spacing:.2em;text-transform:uppercase;color:#5E5A51;margin-bottom:14px">Asked and answered</div>
+      <h2 style="margin:0;font-size:clamp(26px,3.4cqw,50px);line-height:1;font-weight:800;letter-spacing:-.04em">The questions we get on every driveway.</h2>
+    </div>
+    <div data-reveal="1">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
+        <div onClick="{{ f.toggle }}" style="border-top:1px solid #DAD6CD;padding:clamp(16px,1.8cqw,26px) 0;cursor:pointer;transition:border-color .25s" style-hover="border-color:#D69B22">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px">
+            <h3 style="margin:0;font-size:clamp(16px,1.5cqw,22px);font-weight:600;letter-spacing:-.025em">{{ f.q }}</h3>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(15px,1.3cqw,18px);color:#8C6210;line-height:1;transform:{{ f.rot }};transition:transform .3s">+</span>
+          </div>
+          <div style="overflow:hidden;max-height:{{ f.h }};opacity:{{ f.o }};transition:max-height .4s cubic-bezier(.2,.7,.2,1),opacity .3s">
+            <p style="margin:14px 0 0;font-size:clamp(14px,1.1cqw,16px);line-height:1.7;color:#514E47;max-width:660px">{{ f.a }}</p>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- quote : three-step request -->
+  <section id="quote" style="background:#0C0C0B;padding:clamp(46px,6cqw,116px) clamp(16px,3.2cqw,48px)">
+    <div data-reveal="1" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:22px;margin-bottom:clamp(26px,3cqw,48px)">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.85cqw,11px);letter-spacing:.2em;text-transform:uppercase;color:#E9B24A;margin-bottom:16px">Free measure &amp; quote</div>
+        <h2 style="margin:0;font-size:clamp(30px,3.9cqw,60px);line-height:.98;font-weight:800;letter-spacing:-.04em;color:#F7F5F1">Three questions and we're on our way.</h2>
+      </div>
+      <p style="margin:0;font-size:clamp(14px,1.2cqw,17px);line-height:1.6;color:rgba(247,245,241,.68);max-width:360px">If we're not the right crew for the job we'll tell you, instead of padding a quote.</p>
+    </div>
+
+    <div data-reveal="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(2px,.3cqw,3px);background:rgba(247,245,241,.14)">
+      <div style="background:#171614;padding:clamp(22px,2.6cqw,44px)">
+        <div style="display:flex;gap:clamp(8px,1cqw,14px);margin-bottom:clamp(22px,2.4cqw,34px)">
+          <sc-for list="{{ wizSteps }}" as="w" hint-placeholder-count="3">
+            <div onClick="{{ w.pick }}" style="flex:1;cursor:pointer">
+              <div style="height:3px;background:{{ w.bar }};transition:background .3s"></div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.78cqw,10px);letter-spacing:.14em;text-transform:uppercase;color:{{ w.fg }};margin-top:10px;transition:color .3s">{{ w.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <h3 style="margin:0 0 clamp(16px,1.8cqw,24px);font-size:clamp(19px,1.8cqw,26px);font-weight:700;letter-spacing:-.03em;color:#F7F5F1">What's the job?</h3>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <sc-for list="{{ jobTypes }}" as="j" hint-placeholder-count="5">
+                <span onClick="{{ j.pick }}" style="border:1px solid {{ j.border }};background:{{ j.bg }};color:{{ j.fg }};font-size:clamp(13px,1.1cqw,15px);font-weight:600;padding:12px 16px;cursor:pointer;transition:background .25s,border-color .25s,color .25s">{{ j.label }}</span>
+              </sc-for>
+            </div>
+            <div style="margin-top:clamp(22px,2.4cqw,32px);display:flex;align-items:center;gap:12px">
+              <span style="width:24px;height:24px;background:{{ currentHex }};border:1px solid rgba(247,245,241,.3);display:block;transition:background .5s"></span>
+              <span style="font-size:clamp(14px,1.2cqw,16px);color:rgba(247,245,241,.8)">Colour you're leaning towards: <strong style="color:#F7F5F1">{{ colourName }}</strong></span>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStep2 }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <h3 style="margin:0 0 clamp(16px,1.8cqw,24px);font-size:clamp(19px,1.8cqw,26px);font-weight:700;letter-spacing:-.03em;color:#F7F5F1">Tell us about the roof.</h3>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:clamp(16px,2cqw,24px)">
+              <label style="display:block">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,10px);letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.64)">Suburb</span>
+                <input placeholder="e.g. Caringbah" style="width:100%;margin-top:8px;background:transparent;border:0;border-bottom:1px solid rgba(247,245,241,.24);color:#F7F5F1;font-size:16px;padding:12px 0;outline:none;transition:border-color .25s" style-focus="border-color:#D69B22">
+              </label>
+              <label style="display:block">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,10px);letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.64)">Current roof</span>
+                <input placeholder="Tile, tin, or not sure" style="width:100%;margin-top:8px;background:transparent;border:0;border-bottom:1px solid rgba(247,245,241,.24);color:#F7F5F1;font-size:16px;padding:12px 0;outline:none;transition:border-color .25s" style-focus="border-color:#D69B22">
+              </label>
+              <label style="display:block">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,10px);letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.64)">Storeys</span>
+                <input placeholder="1, 2, or split" style="width:100%;margin-top:8px;background:transparent;border:0;border-bottom:1px solid rgba(247,245,241,.24);color:#F7F5F1;font-size:16px;padding:12px 0;outline:none;transition:border-color .25s" style-focus="border-color:#D69B22">
+              </label>
+              <label style="display:block">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,10px);letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.64)">When</span>
+                <input placeholder="ASAP, or a month out" style="width:100%;margin-top:8px;background:transparent;border:0;border-bottom:1px solid rgba(247,245,241,.24);color:#F7F5F1;font-size:16px;padding:12px 0;outline:none;transition:border-color .25s" style-focus="border-color:#D69B22">
+              </label>
+            </div>
+            <label style="display:block;margin-top:clamp(20px,2.2cqw,30px)">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,10px);letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.64)">Anything we should know</span>
+              <textarea rows="2" placeholder="Leaks, access, scaffold, dog in the yard…" style="width:100%;margin-top:8px;background:transparent;border:0;border-bottom:1px solid rgba(247,245,241,.24);color:#F7F5F1;font-size:16px;padding:12px 0;outline:none;resize:none;transition:border-color .25s" style-focus="border-color:#D69B22"></textarea>
+            </label>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStep3 }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <h3 style="margin:0 0 clamp(16px,1.8cqw,24px);font-size:clamp(19px,1.8cqw,26px);font-weight:700;letter-spacing:-.03em;color:#F7F5F1">Where do we reach you?</h3>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:clamp(16px,2cqw,24px)">
+              <label style="display:block">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,10px);letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.64)">Name</span>
+                <input placeholder="Your name" style="width:100%;margin-top:8px;background:transparent;border:0;border-bottom:1px solid rgba(247,245,241,.24);color:#F7F5F1;font-size:16px;padding:12px 0;outline:none;transition:border-color .25s" style-focus="border-color:#D69B22">
+              </label>
+              <label style="display:block">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,10px);letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.64)">Mobile</span>
+                <input placeholder="04__ ___ ___" style="width:100%;margin-top:8px;background:transparent;border:0;border-bottom:1px solid rgba(247,245,241,.24);color:#F7F5F1;font-size:16px;padding:12px 0;outline:none;transition:border-color .25s" style-focus="border-color:#D69B22">
+              </label>
+              <label style="display:block">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,10px);letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.64)">Email</span>
+                <input placeholder="you@email.com" style="width:100%;margin-top:8px;background:transparent;border:0;border-bottom:1px solid rgba(247,245,241,.24);color:#F7F5F1;font-size:16px;padding:12px 0;outline:none;transition:border-color .25s" style-focus="border-color:#D69B22">
+              </label>
+              <label style="display:block">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,10px);letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.64)">Best time to call</span>
+                <input placeholder="Mornings, after 5…" style="width:100%;margin-top:8px;background:transparent;border:0;border-bottom:1px solid rgba(247,245,241,.24);color:#F7F5F1;font-size:16px;padding:12px 0;outline:none;transition:border-color .25s" style-focus="border-color:#D69B22">
+              </label>
+            </div>
+            <button style="width:100%;margin-top:clamp(24px,2.8cqw,36px);background:#D69B22;color:#100F0E;border:0;font-size:clamp(15px,1.3cqw,17px);font-weight:700;padding:clamp(16px,1.7cqw,22px);cursor:pointer;transition:background .25s,transform .25s" style-hover="background:#F7F5F1;transform:translateY(-2px)">Send it through</button>
+          </div>
+        </sc-if>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:clamp(24px,2.8cqw,36px);border-top:1px solid rgba(247,245,241,.14);padding-top:clamp(16px,1.8cqw,24px)">
+          <span onClick="{{ wizBack }}" style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.85cqw,11px);letter-spacing:.16em;text-transform:uppercase;color:{{ backColor }};cursor:pointer;transition:color .25s">← Back</span>
+          <span onClick="{{ wizNext }}" style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.85cqw,11px);letter-spacing:.16em;text-transform:uppercase;color:{{ nextColor }};cursor:pointer;transition:color .25s">{{ nextLabel }}</span>
+        </div>
+      </div>
+
+      <div style="background:#100F0E;padding:clamp(22px,2.6cqw,44px);display:flex;flex-direction:column;justify-content:space-between;gap:clamp(20px,2.4cqw,34px)">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,10px);letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.64);margin-bottom:10px">Rather just ring?</div>
+          <a href="tel:0405285207" style="font-size:clamp(26px,2.8cqw,44px);font-weight:800;letter-spacing:-.04em;color:#F7F5F1;line-height:1" style-hover="color:#D69B22">0405 285 207</a>
+          <div style="font-size:clamp(14px,1.15cqw,16px);color:rgba(247,245,241,.6);margin-top:10px">Dan — straight to the mobile</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:clamp(14px,1.6cqw,20px)">
+          <div style="border-top:1px solid rgba(247,245,241,.16);padding-top:clamp(12px,1.4cqw,18px)">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,10px);letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.64);margin-bottom:8px">Email</div>
+            <a href="mailto:dan@roofsmartroofing.com.au" style="font-size:clamp(14px,1.35cqw,19px);font-weight:600;letter-spacing:-.02em;color:#F7F5F1;word-break:break-word" style-hover="color:#D69B22">dan@roofsmartroofing.com.au</a>
+          </div>
+          <div style="border-top:1px solid rgba(247,245,241,.16);padding-top:clamp(12px,1.4cqw,18px)">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,10px);letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.64);margin-bottom:8px">On the tools</div>
+            <div style="font-size:clamp(14px,1.15cqw,16px);color:rgba(247,245,241,.8)">Mon–Fri 7am–5pm · Saturday by arrangement</div>
+          </div>
+          <div style="border-top:1px solid rgba(247,245,241,.16);padding-top:clamp(12px,1.4cqw,18px)">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,10px);letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.64);margin-bottom:8px">Covering</div>
+            <div style="font-size:clamp(14px,1.15cqw,16px);color:rgba(247,245,241,.8)">Sutherland Shire &amp; Illawarra, NSW</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer : marquee + CTA band + ledger -->
+  <footer style="background:#050504">
+    <div style="display:flex;overflow:hidden;border-bottom:1px solid rgba(247,245,241,.12);padding:clamp(18px,2.2cqw,34px) 0">
+      <div style="display:flex;gap:clamp(30px,3.4cqw,60px);white-space:nowrap;animation:rsTicker 38s linear infinite">
+        <sc-for list="{{ footerLoop }}" as="t" hint-placeholder-count="4">
+          <span style="font-size:clamp(30px,4.6cqw,76px);line-height:1;font-weight:800;letter-spacing:-.045em;color:rgba(247,245,241,.9)">{{ t }}</span>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(2px,.3cqw,3px);background:rgba(247,245,241,.12)">
+      <a href="tel:0405285207" style="background:#D69B22;color:#100F0E;padding:clamp(24px,2.8cqw,44px) clamp(16px,3.2cqw,48px);display:flex;flex-direction:column;gap:8px;transition:background .25s" style-hover="background:#E9B24A">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,11px);letter-spacing:.18em;text-transform:uppercase;opacity:.7">Call Dan now</span>
+        <span style="font-size:clamp(24px,2.6cqw,40px);font-weight:800;letter-spacing:-.04em;line-height:1">0405 285 207</span>
+      </a>
+      <a href="#quote" style="background:#0C0C0B;color:#F7F5F1;padding:clamp(24px,2.8cqw,44px) clamp(16px,3.2cqw,48px);display:flex;flex-direction:column;gap:8px;transition:background .25s" style-hover="background:#171614">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.8cqw,11px);letter-spacing:.18em;text-transform:uppercase;color:rgba(247,245,241,.5)">Book it online</span>
+        <span style="font-size:clamp(24px,2.6cqw,40px);font-weight:800;letter-spacing:-.04em;line-height:1">Free measure &amp; quote</span>
+      </a>
+    </div>
+
+    <div style="padding:clamp(30px,3.4cqw,56px) clamp(16px,3.2cqw,48px) clamp(20px,2.4cqw,34px)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:clamp(22px,3cqw,48px);padding-bottom:clamp(22px,2.6cqw,38px);border-bottom:1px solid rgba(247,245,241,.14)">
+        <img src="logo-onDark.png" alt="Roofsmart Roofing" style="height:clamp(30px,3cqw,46px);width:auto;display:block;align-self:start">
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.62)">Site</span>
+          <a href="#colour" style="color:rgba(247,245,241,.75);font-size:14px">Colours</a>
+          <a href="#services" style="color:rgba(247,245,241,.75);font-size:14px">Services</a>
+          <a href="#work" style="color:rgba(247,245,241,.75);font-size:14px">Work</a>
+          <a href="#process" style="color:rgba(247,245,241,.75);font-size:14px">Process</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.62)">Services</span>
+          <a href="#services" style="color:rgba(247,245,241,.75);font-size:14px">Metal roofing</a>
+          <a href="#services" style="color:rgba(247,245,241,.75);font-size:14px">Wall cladding</a>
+          <a href="#services" style="color:rgba(247,245,241,.75);font-size:14px">Extensions</a>
+          <a href="#services" style="color:rgba(247,245,241,.75);font-size:14px">Repairs</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.62)">Where</span>
+          <span style="color:rgba(247,245,241,.75);font-size:14px">Sutherland Shire, NSW</span>
+          <span style="color:rgba(247,245,241,.75);font-size:14px">Illawarra, NSW</span>
+          <a href="mailto:dan@roofsmartroofing.com.au" style="color:rgba(247,245,241,.75);font-size:14px;word-break:break-word">dan@roofsmartroofing.com.au</a>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;padding-top:18px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(247,245,241,.62)">
+        <span>© 2026 Roofsmart Roofing · Est. 2011</span>
+        <span>Licence &amp; ABN to be confirmed</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- mobile bottom nav -->
+  <div style="position:sticky;bottom:0;z-index:20;overflow:hidden;max-height:max(0px, min(90px, (900px - 100cqw) * 9999));display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(247,245,241,.16);border-top:1px solid rgba(247,245,241,.16)">
+    <a href="tel:0405285207" style="background:#0C0C0B;color:#F7F5F1;text-align:center;padding:19px 0;font-size:15px;font-weight:700">Call Dan</a>
+    <a href="#quote" style="background:#D69B22;color:#100F0E;text-align:center;padding:19px 0;font-size:15px;font-weight:700">Free quote</a>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { open: -1, job: 0, menu: false, colour: 0, split: 42, years: 0, hoverJob: -1, progress: 0, svc: 0, rev: 0, revFade: 1, area: '', wiz: 0, proc: -1 };
+
+  componentDidMount() {
+    const root = this.el || document;
+    const nodes = Array.from(document.querySelectorAll('[data-reveal]'));
+    nodes.forEach(n => {
+      n.style.opacity = '0';
+      n.style.transform = 'translateY(22px)';
+      n.style.transition = 'opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1)';
+    });
+    const show = n => { n.style.opacity = '1'; n.style.transform = 'none'; };
+    if ('IntersectionObserver' in window) {
+      this._io = new IntersectionObserver((entries, obs) => {
+        entries.forEach((e, i) => {
+          if (e.isIntersecting) {
+            setTimeout(() => show(e.target), Math.min(i * 70, 280));
+            obs.unobserve(e.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: .12 });
+      nodes.forEach(n => this._io.observe(n));
+    }
+    this._fallback = setTimeout(() => nodes.forEach(show), 2200);
+
+    this._onScroll = () => {
+      const h = document.documentElement;
+      const max = (h.scrollHeight - h.clientHeight) || 1;
+      const p = Math.max(0, Math.min(1, (window.scrollY || h.scrollTop) / max));
+      if (Math.abs(p - this.state.progress) > .004) this.setState({ progress: p });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+
+    const t0 = performance.now();
+    const tick = now => {
+      const k = Math.min(1, (now - t0) / 1400);
+      const eased = 1 - Math.pow(1 - k, 3);
+      this.setState({ years: Math.round(eased * 15) });
+      if (k < 1) this._raf = requestAnimationFrame(tick);
+    };
+    this._raf = requestAnimationFrame(tick);
+
+    this._rev = setInterval(() => {
+      this.setState({ revFade: 0 });
+      setTimeout(() => this.setState(s => ({ rev: (s.rev + 1) % 3, revFade: 1 })), 320);
+    }, 7000);
+  }
+
+  componentWillUnmount() {
+    if (this._io) this._io.disconnect();
+    clearTimeout(this._fallback);
+    cancelAnimationFrame(this._raf);
+    clearInterval(this._rev);
+    window.removeEventListener('scroll', this._onScroll);
+  }
+
+  renderVals() {
+    const gold = '#D69B22';
+    const colours = [
+      { name: 'Basalt', hex: '#6B6E6F' },
+      { name: 'Monument', hex: '#3A3C3E' },
+      { name: 'Surfmist', hex: '#E4E2D5' },
+      { name: 'Windspray', hex: '#8C9091' },
+      { name: 'Dune', hex: '#B0A99F' },
+      { name: 'Night Sky', hex: '#14161A' }
+    ];
+    const idx = this.state.colour;
+    const palette = colours.map((c, i) => ({
+      name: c.name, hex: c.hex,
+      ring: i === idx ? gold : 'rgba(247,245,241,.22)',
+      pick: () => this.setState({ colour: i })
+    }));
+    const current = colours[idx];
+
+    const services = [
+      { n: '01', tag: 'Re-roof · New build', t: 'All works metal roofing', b: 'Customisable options from Colorbond to Trimdek, all guaranteed to meet and exceed expectations.', img: 'img/new-build-metal-roof.png', alt: 'New Colorbond roof on a single-storey Shire home', points: ['Sheets cut to length, no laps', 'Flashings folded by hand', 'Box gutters and sumps'] },
+      { n: '02', tag: 'Looking into the future', t: 'Wall cladding', b: 'Extensive experience in the upcoming world of metal wall cladding, with personalised attention to your build.', img: 'img/wall-cladding-standing-seam.png', alt: 'Standing seam metal wall cladding on a two-storey home', points: ['Hidden fixings', 'Matched roof colours', 'Rain screen detailing'] },
+      { n: '03', tag: 'Additions · Patios', t: 'Extensions and add-ons', b: 'Fully prepared to tackle even the most complex projects — tying a new roof into an old one is where most leaks start.', img: 'img/extension-skillion-roof.png', alt: 'Skillion roof extension with clerestory windows', points: ['Skillions and dormers', 'Patio and pergola roofs', 'Awkward junction work'] }
+    ];
+    const svcIdx = Math.min(this.state.svc, services.length - 1);
+    const svcList = services.map((s, i) => {
+      const on = i === svcIdx;
+      return { ...s, pick: () => this.setState({ svc: i }),
+        bg: on ? '#171614' : 'transparent',
+        fg: on ? '#F7F5F1' : 'rgba(247,245,241,.55)',
+        accent: on ? '#D69B22' : 'rgba(247,245,241,.62)',
+        barW: on ? '100%' : '0%' };
+    });
+    const activeSvc = svcList[svcIdx];
+
+    const jobs = [
+      { n: '01', t: 'Two-storey re-roof', material: 'Colorbond · dark hip roof', img: 'img/hero-two-storey-colorbond.png', alt: 'Dark Colorbond hip roof on a rendered two-storey home' },
+      { n: '02', t: 'Standing seam cladding', material: 'Facade · vertical seam', img: 'img/wall-cladding-standing-seam.png', alt: 'White standing seam cladding across a two-storey facade' },
+      { n: '03', t: 'Skillion extension', material: 'Colorbond · clerestory', img: 'img/extension-skillion-roof.png', alt: 'Skillion roof extension over a rear living area' },
+      { n: '04', t: 'Tile to metal re-roof', material: 'Colorbond over brick', img: 'img/brick-home-after-metal.png', alt: 'Brick home re-roofed from tile to dark Colorbond' },
+      { n: '05', t: 'Box gutter rebuild', material: 'Zincalume · sump and flashings', img: 'img/box-gutter-zinc.png', alt: 'New zinc box gutter between two metal roof planes' },
+      { n: '06', t: 'Illawarra coastal roof', material: 'Colorbond · light finish', img: 'img/illawarra-coastal-home.png', alt: 'Light Colorbond roof on a coastal Illawarra home' }
+    ].map((j, i) => ({
+      ...j,
+      previewH: this.state.hoverJob === i ? 'clamp(180px, 22cqw, 330px)' : '0px',
+      rowBg: this.state.hoverJob === i ? '#EFEBE3' : 'transparent',
+      enter: () => this.setState({ hoverJob: i }),
+      leave: () => this.setState(s => (s.hoverJob === i ? { hoverJob: -1 } : null))
+    }));
+    const steps = [
+      { n: '01', t: 'You ring Dan', b: 'Address, rough scope, and when you want it done.' },
+      { n: '02', t: 'Free measure', b: 'We get on the roof, measure up, photograph the problem areas.' },
+      { n: '03', t: 'Written quote', b: 'Fixed price, day count, and what happens if we find rot underneath.' },
+      { n: '04', t: 'Install', b: 'Strip, dry-in, fix off. Weather checked every morning.' },
+      { n: '05', t: 'Clean and hand over', b: 'Gutters flushed, magnet over the lawn, warranty in your inbox.' }
+    ];
+    const areas = [
+      { n: 'Cronulla', r: '2230' }, { n: 'Caringbah', r: '2229' },
+      { n: 'Sylvania', r: '2224' }, { n: 'Miranda', r: '2228' },
+      { n: 'Engadine', r: '2233' }, { n: 'Sutherland', r: '2232' },
+      { n: 'Helensburgh', r: '2508' }, { n: 'Thirroul', r: '2515' },
+      { n: 'Wollongong', r: '2500' }, { n: 'Shellharbour', r: '2529' }
+    ];
+    const reviews = [
+      { q: '\u201CQuoted on the Tuesday, on the roof the following week, and the driveway was cleaner than they found it.\u201D', n: 'Client name', m: 'Re-roof · Suburb' },
+      { q: '\u201CDan walked us through the flashing detail instead of guessing at it. Two storms since, not a drop.\u201D', n: 'Client name', m: 'Extension · Suburb' },
+      { q: '\u201CStraight answer on price, no chasing for updates, and the cladding lines up perfectly.\u201D', n: 'Client name', m: 'Cladding · Suburb' }
+    ];
+    const faqData = [
+      { q: 'How long does a re-roof take?', a: 'Three to five days of decent weather on a standard single-storey home, including strip, dry-in and fix off. Your quote carries a day count so you can plan around it.' },
+      { q: 'What happens if you find rot or asbestos?', a: 'We photograph it and price the fix before touching it. Asbestos goes to a licensed removalist we coordinate, so you still deal with one person.' },
+      { q: 'Which materials do you use?', a: 'Colorbond and Trimdek mostly, plus Zincalume and standing seam when the design calls for it. Full colour range with matched flashings and capping.' },
+      { q: 'Do you take insurance and storm work?', a: 'Yes. We quote to the insurer\u2019s scope and supply photos and a written report for the claim.' },
+      { q: 'Is the quote actually free?', a: 'Yes. Free measure, written quote, no obligation. If we are not the right crew for the job we will say so.' }
+    ];
+    const faqs = faqData.map((f, i) => {
+      const on = this.state.open === i;
+      return { q: f.q, a: f.a, h: on ? '340px' : '0px', o: on ? 1 : 0, rot: on ? 'rotate(45deg)' : 'rotate(0deg)',
+        toggle: () => this.setState(s => ({ open: s.open === i ? -1 : i })) };
+    });
+    const jobTypes = ['Full re-roof', 'Repairs', 'Wall cladding', 'Extension', 'Not sure yet'].map((label, i) => {
+      const on = this.state.job === i;
+      return { label, pick: () => this.setState({ job: i }),
+        bg: on ? gold : 'transparent', fg: on ? '#100F0E' : 'rgba(247,245,241,.82)',
+        border: on ? gold : 'rgba(247,245,241,.24)' };
+    });
+    const q = this.state.area.trim().toLowerCase();
+    const filteredAreas = q ? areas.filter(a => a.n.toLowerCase().includes(q) || a.r.includes(q)) : areas;
+    const areaCount = filteredAreas.length + ' of ' + areas.length + ' service areas';
+    const areaNote = filteredAreas.length
+      ? 'Cronulla to Shellharbour, plus anywhere in between if the job suits.'
+      : 'Not on the list? Ring Dan anyway — we still get out past the usual patch for the right job.';
+
+    const ri = this.state.rev % reviews.length;
+    const revDots = reviews.map((r, i) => ({
+      bg: i === ri ? '#D69B22' : 'rgba(247,245,241,.22)',
+      pick: () => this.setState({ rev: i, revFade: 1 })
+    }));
+
+    const wizIdx = this.state.wiz;
+    const wizLabels = ['01 The job', '02 The roof', '03 Your details'];
+    const wizSteps = wizLabels.map((label, i) => ({
+      label,
+      bar: i <= wizIdx ? '#D69B22' : 'rgba(247,245,241,.2)',
+      fg: i === wizIdx ? '#F7F5F1' : 'rgba(247,245,241,.64)',
+      pick: () => this.setState({ wiz: i })
+    }));
+
+    const procSteps = steps.map((s, i) => {
+      const on = this.state.proc === i;
+      return { ...s,
+        offset: (i % 2) ? 'clamp(0px,2.6cqw,44px)' : '0px',
+        dotSize: on ? '18px' : '12px',
+        dotBg: on ? '#D69B22' : '#F7F5F1',
+        lineBg: on ? '#D69B22' : '#DAD6CD',
+        enter: () => this.setState({ proc: i }),
+        leave: () => this.setState(st => (st.proc === i ? { proc: -1 } : null)) };
+    });
+
+    const tickerItems = ['Est. 2011', 'Free measure & quote', 'Colorbond & Trimdek', 'Fully insured', 'Sutherland Shire', 'Illawarra'];
+    return {
+      palette, colourName: current.name, currentHex: current.hex,
+      heroWash: 'linear-gradient(155deg, ' + current.hex + ' 0%, #0C0C0B 78%)',
+      services: svcList, activeSvc,
+      jobs, steps: procSteps, faqs, jobTypes,
+      areas: filteredAreas, areaCount, areaNote,
+      areaQuery: this.state.area,
+      setArea: e => this.setState({ area: e.target.value }),
+      review: reviews[ri], revDots, revFade: this.state.revFade,
+      revLabel: String(ri + 1).padStart(2, '0') + ' / ' + String(reviews.length).padStart(2, '0'),
+      revNext: () => this.setState(s => ({ rev: (s.rev + 1) % reviews.length, revFade: 1 })),
+      revPrev: () => this.setState(s => ({ rev: (s.rev + reviews.length - 1) % reviews.length, revFade: 1 })),
+      wizSteps, isStep1: wizIdx === 0, isStep2: wizIdx === 1, isStep3: wizIdx === 2,
+      wizNext: () => this.setState(s => ({ wiz: Math.min(2, s.wiz + 1) })),
+      wizBack: () => this.setState(s => ({ wiz: Math.max(0, s.wiz - 1) })),
+      nextLabel: wizIdx === 2 ? 'Ready to send' : 'Next →',
+      nextColor: wizIdx === 2 ? 'rgba(247,245,241,.7)' : '#D69B22',
+      backColor: wizIdx === 0 ? 'rgba(247,245,241,.6)' : '#F7F5F1',
+      footerLoop: ['Metal roofing', '·', 'Wall cladding', '·', 'Extensions', '·', 'Since 2011', '·',
+                   'Metal roofing', '·', 'Wall cladding', '·', 'Extensions', '·', 'Since 2011', '·'],
+      ticker: tickerItems.concat(tickerItems),
+      yearCount: this.state.years,
+      facts: [
+        { k: 'Metal only', v: 'Colorbond, Trimdek, standing seam' },
+        { k: 'Owner on site', v: 'Dan quotes it and fixes it' },
+        { k: 'Free quotes', v: 'Measured, written, no obligation' },
+        { k: 'Shire + Illawarra', v: 'Cronulla to Shellharbour' }
+      ],
+      split: this.state.split,
+      splitPct: this.state.split + '%',
+      beforeW: (10000 / Math.max(4, this.state.split)) + '%',
+      setSplit: e => this.setState({ split: Number(e.target.value) }),
+      progressPct: (this.state.progress * 100).toFixed(1) + '%',
+      menuOpen: this.state.menu,
+      burgerColor: this.state.menu ? gold : '#F7F5F1',
+      toggleMenu: () => this.setState(s => ({ menu: !s.menu })),
+      closeMenu: () => this.setState({ menu: false })
+    };
+  }
+}
+</script>
+</body>
+</html>
