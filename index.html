@@ -26,11 +26,11 @@
 </style>
 </helmet>
 
-<div style="container-type:inline-size;width:100%;background:#F7F5F1;color:#100F0E;overflow-x:hidden">
+<div style="container-type:inline-size;width:100%;background:#F7F5F1;color:#100F0E;overflow-x:clip">
 
   <!-- header + scroll progress -->
   <header style="position:sticky;top:0;z-index:20;background:rgba(12,12,11,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(247,245,241,.14)">
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 clamp(16px,3.2cqw,48px);height:clamp(60px,5.6cqw,82px)">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 max(clamp(16px,3.2cqw,48px),(100cqw - 1680px)/2);height:clamp(60px,5.6cqw,82px)">
       <img src="logo-onDark.png" alt="Roofsmart Roofing" style="height:clamp(23px,2.5cqw,36px);width:auto;display:block;flex:0 0 auto">
       <nav style="overflow:hidden;display:flex;align-items:center;gap:clamp(14px,2.3cqw,32px);max-width:max(0px, min(720px, (100cqw - 899px) * 9999))">
         <a href="#colour" style="color:rgba(247,245,241,.72);font-size:14px;font-weight:500;white-space:nowrap">Colours</a>
@@ -40,7 +40,7 @@
         <a href="#faq" style="color:rgba(247,245,241,.72);font-size:14px;font-weight:500;white-space:nowrap">FAQ</a>
       </nav>
       <div style="display:flex;align-items:center;gap:clamp(10px,1.4cqw,18px);flex:0 0 auto">
-        <a href="tel:0405285207" style="color:#F7F5F1;font-weight:700;font-size:clamp(14px,1.3cqw,17px);white-space:nowrap">0405 285 207</a>
+        <a href="tel:0405285207" style="color:#F7F5F1;font-weight:700;font-size:clamp(14px,1.3cqw,17px);white-space:nowrap;overflow:hidden;max-width:max(0px, min(220px, (100cqw - 559px) * 9999))">0405 285 207</a>
         <a href="#quote" style="background:#D69B22;color:#100F0E;font-weight:700;font-size:clamp(13px,1.1cqw,15px);padding:clamp(10px,1.05cqw,14px) clamp(14px,1.6cqw,24px);border-radius:2px" style-hover="background:#F7F5F1">Free quote</a>
         <div onClick="{{ toggleMenu }}" role="button" aria-label="Menu" style="overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:5px;height:40px;cursor:pointer;max-width:max(0px, min(24px, (900px - 100cqw) * 9999))">
           <span style="width:24px;height:2px;background:{{ burgerColor }};display:block;transition:background .2s"></span>
@@ -54,7 +54,7 @@
   </header>
 
   <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
-    <div style="position:sticky;top:clamp(62px,5.6cqw,84px);z-index:19;background:#0C0C0B;border-bottom:1px solid rgba(247,245,241,.14);padding:6px clamp(16px,3.2cqw,48px) 18px;display:flex;flex-direction:column">
+    <div style="position:sticky;top:clamp(62px,5.6cqw,84px);z-index:19;background:#0C0C0B;border-bottom:1px solid rgba(247,245,241,.14);padding:6px max(clamp(16px,3.2cqw,48px),(100cqw - 1680px)/2) 18px;display:flex;flex-direction:column">
       <a href="#colour" onClick="{{ closeMenu }}" style="color:#F7F5F1;font-size:19px;font-weight:600;padding:15px 0;border-bottom:1px solid rgba(247,245,241,.12)">Colours</a>
       <a href="#services" onClick="{{ closeMenu }}" style="color:#F7F5F1;font-size:19px;font-weight:600;padding:15px 0;border-bottom:1px solid rgba(247,245,241,.12)">Services</a>
       <a href="#work" onClick="{{ closeMenu }}" style="color:#F7F5F1;font-size:19px;font-weight:600;padding:15px 0;border-bottom:1px solid rgba(247,245,241,.12)">Work</a>
@@ -64,7 +64,7 @@
   </sc-if>
 
   <!-- HERO with live colour wash -->
-  <section id="colour" style="position:relative;background:#0C0C0B;padding:clamp(30px,4.4cqw,62px) clamp(16px,3.2cqw,48px) 0;overflow:hidden">
+  <section id="colour" style="position:relative;background:#0C0C0B;padding:clamp(30px,4.4cqw,62px) max(clamp(16px,3.2cqw,48px),(100cqw - 1680px)/2) 0;overflow:hidden">
     <img src="img/hero-two-storey-colorbond.png" alt="Dark Colorbond roof on a two-storey Sutherland Shire home" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
     <div style="position:absolute;inset:0;background:{{ heroWash }};mix-blend-mode:multiply;opacity:.72;transition:background 1.1s cubic-bezier(.2,.7,.2,1)"></div>
     <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,7,.96) 2%,rgba(8,8,7,.66) 44%,rgba(8,8,7,.34) 100%)"></div>
@@ -120,7 +120,7 @@
   </section>
 
   <!-- since 2011 : inverted band -->
-  <section style="background:#EFEBE3;padding:clamp(44px,5.6cqw,104px) clamp(16px,3.2cqw,48px)" data-comment-anchor="969392fa-statement">
+  <section style="background:#EFEBE3;padding:clamp(44px,5.6cqw,104px) max(clamp(16px,3.2cqw,48px),(100cqw - 1680px)/2)" data-comment-anchor="969392fa-statement">
     <div data-reveal="1" style="display:flex;align-items:center;gap:12px;margin-bottom:clamp(20px,2.4cqw,34px)">
       <span style="width:clamp(20px,2.4cqw,34px);height:2px;background:#8C6210"></span>
       <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.85cqw,11px);letter-spacing:.2em;text-transform:uppercase;color:#8C6210">Since 2011</span>
@@ -143,7 +143,7 @@
   </section>
 
   <!-- services : selector + panel -->
-  <section id="services" style="background:#100F0E;padding:clamp(46px,6cqw,110px) clamp(16px,3.2cqw,48px)">
+  <section id="services" style="background:#100F0E;padding:clamp(46px,6cqw,110px) max(clamp(16px,3.2cqw,48px),(100cqw - 1680px)/2)">
     <div data-reveal="1" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:clamp(26px,3cqw,48px)">
       <div>
         <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.85cqw,11px);letter-spacing:.2em;text-transform:uppercase;color:#E9B24A;margin-bottom:14px">What we do</div>
@@ -180,21 +180,21 @@
   </section>
 
   <!-- work index with hover preview -->
-  <section id="work" style="padding:clamp(46px,6cqw,110px) clamp(16px,3.2cqw,48px)">
+  <section id="work" style="padding:clamp(46px,6cqw,110px) max(clamp(16px,3.2cqw,48px),(100cqw - 1680px)/2)">
     <div data-reveal="1" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:clamp(22px,2.6cqw,40px)">
       <div>
         <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.85cqw,11px);letter-spacing:.2em;text-transform:uppercase;color:#5E5A51;margin-bottom:14px">Finished work</div>
-        <h2 style="margin:0;font-size:clamp(28px,3.7cqw,56px);line-height:1;font-weight:800;letter-spacing:-.04em">Hover a job to see it.</h2>
+        <h2 style="margin:0;font-size:clamp(28px,3.7cqw,56px);line-height:1;font-weight:800;letter-spacing:-.04em">Hover or tap a job to see it.</h2>
       </div>
       <a href="#" style="color:#100F0E;font-weight:600;font-size:clamp(13px,1.15cqw,15px);border-bottom:2px solid #D69B22;padding-bottom:5px" style-hover="color:#8C6210">Full gallery</a>
     </div>
     <div data-reveal="1">
       <sc-for list="{{ jobs }}" as="j" hint-placeholder-count="6">
-        <div onMouseEnter="{{ j.enter }}" onMouseLeave="{{ j.leave }}" style="border-top:1px solid #DAD6CD;cursor:pointer;background:{{ j.rowBg }};transition:background .3s">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(50%,140px),1fr));gap:4px clamp(12px,2cqw,32px);align-items:baseline;padding:clamp(14px,1.6cqw,24px) clamp(8px,1cqw,16px)">
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.85cqw,12px);color:#8C6210">{{ j.n }}</span>
-            <span style="font-size:clamp(17px,1.75cqw,26px);font-weight:700;letter-spacing:-.025em">{{ j.t }}</span>
-            <span style="font-size:clamp(13px,1.05cqw,15px);color:#514E47">{{ j.material }}</span>
+        <div onMouseEnter="{{ j.enter }}" onMouseLeave="{{ j.leave }}" onClick="{{ j.tap }}" style="border-top:1px solid #DAD6CD;cursor:pointer;background:{{ j.rowBg }};transition:background .3s">
+          <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px clamp(12px,2cqw,32px);padding:clamp(16px,1.6cqw,24px) clamp(8px,1cqw,16px)">
+            <span style="flex:0 0 auto;font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.85cqw,12px);color:#8C6210">{{ j.n }}</span>
+            <span style="flex:1 1 220px;min-width:0;font-size:clamp(17px,1.75cqw,26px);font-weight:700;letter-spacing:-.025em">{{ j.t }}</span>
+            <span style="flex:0 0 auto;font-size:clamp(13px,1.05cqw,15px);color:#514E47">{{ j.material }}</span>
           </div>
           <div style="overflow:hidden;height:{{ j.previewH }};transition:height .45s cubic-bezier(.2,.7,.2,1)">
             <div style="margin:0 clamp(8px,1cqw,16px) clamp(14px,1.6cqw,22px)">
@@ -208,7 +208,7 @@
   </section>
 
   <!-- before / after slider -->
-  <section style="background:#EFEBE3;padding:clamp(46px,6cqw,110px) clamp(16px,3.2cqw,48px)">
+  <section style="background:#EFEBE3;padding:clamp(46px,6cqw,110px) max(clamp(16px,3.2cqw,48px),(100cqw - 1680px)/2)">
     <div data-reveal="1" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:clamp(20px,2.4cqw,36px)">
       <div>
         <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.85cqw,11px);letter-spacing:.2em;text-transform:uppercase;color:#5E5A51;margin-bottom:14px">Before &amp; after</div>
@@ -229,7 +229,7 @@
   </section>
 
   <!-- process : clean numbered list -->
-  <section id="process" style="padding:clamp(46px,6cqw,110px) clamp(16px,3.2cqw,48px)">
+  <section id="process" style="padding:clamp(46px,6cqw,110px) max(clamp(16px,3.2cqw,48px),(100cqw - 1680px)/2)">
     <div data-reveal="1" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:clamp(26px,3cqw,50px)">
       <div>
         <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.85cqw,11px);letter-spacing:.2em;text-transform:uppercase;color:#5E5A51;margin-bottom:14px">How a job runs</div>
@@ -251,7 +251,7 @@
   </section>
 
   <!-- reviews : rotator -->
-  <section style="background:#100F0E;padding:clamp(46px,6cqw,110px) clamp(16px,3.2cqw,48px)">
+  <section style="background:#100F0E;padding:clamp(46px,6cqw,110px) max(clamp(16px,3.2cqw,48px),(100cqw - 1680px)/2)">
     <div data-reveal="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:clamp(24px,3.4cqw,64px);align-items:start">
       <div>
         <h2 style="margin:0 0 clamp(20px,2.4cqw,34px);font-size:clamp(26px,3.4cqw,50px);line-height:1;font-weight:800;letter-spacing:-.04em;color:#F7F5F1">Straight from the driveway.</h2>
@@ -278,7 +278,7 @@
   </section>
 
   <!-- areas : searchable coverage -->
-  <section style="padding:clamp(46px,6cqw,110px) clamp(16px,3.2cqw,48px)">
+  <section style="padding:clamp(46px,6cqw,110px) max(clamp(16px,3.2cqw,48px),(100cqw - 1680px)/2)">
     <div data-reveal="1" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:clamp(26px,3cqw,44px)">
       <div>
         <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.85cqw,11px);letter-spacing:.2em;text-transform:uppercase;color:#5E5A51;margin-bottom:14px">Where we work</div>
@@ -307,7 +307,7 @@
   </section>
 
   <!-- faq -->
-  <section id="faq" style="background:#EFEBE3;padding:clamp(46px,6cqw,110px) clamp(16px,3.2cqw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:clamp(26px,4cqw,64px)">
+  <section id="faq" style="background:#EFEBE3;padding:clamp(46px,6cqw,110px) max(clamp(16px,3.2cqw,48px),(100cqw - 1680px)/2);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:clamp(26px,4cqw,64px)">
     <div data-reveal="1">
       <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.85cqw,11px);letter-spacing:.2em;text-transform:uppercase;color:#5E5A51;margin-bottom:14px">Asked and answered</div>
       <h2 style="margin:0;font-size:clamp(26px,3.4cqw,50px);line-height:1;font-weight:800;letter-spacing:-.04em">The questions we get on every driveway.</h2>
@@ -328,7 +328,7 @@
   </section>
 
   <!-- quote : three-step request -->
-  <section id="quote" style="background:#0C0C0B;padding:clamp(46px,6cqw,116px) clamp(16px,3.2cqw,48px)">
+  <section id="quote" style="background:#0C0C0B;padding:clamp(46px,6cqw,116px) max(clamp(16px,3.2cqw,48px),(100cqw - 1680px)/2)">
     <div data-reveal="1" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:22px;margin-bottom:clamp(26px,3cqw,48px)">
       <div>
         <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,.85cqw,11px);letter-spacing:.2em;text-transform:uppercase;color:#E9B24A;margin-bottom:16px">Free measure &amp; quote</div>
@@ -467,28 +467,28 @@
       </a>
     </div>
 
-    <div style="padding:clamp(30px,3.4cqw,56px) clamp(16px,3.2cqw,48px) clamp(20px,2.4cqw,34px)">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:clamp(22px,3cqw,48px);padding-bottom:clamp(22px,2.6cqw,38px);border-bottom:1px solid rgba(247,245,241,.14)">
+    <div style="padding:clamp(30px,3.4cqw,56px) max(clamp(16px,3.2cqw,48px),(100cqw - 1680px)/2) clamp(20px,2.4cqw,34px)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr));gap:clamp(22px,3cqw,48px);padding-bottom:clamp(22px,2.6cqw,38px);border-bottom:1px solid rgba(247,245,241,.14)">
         <img src="logo-onDark.png" alt="Roofsmart Roofing" style="height:clamp(30px,3cqw,46px);width:auto;display:block;align-self:start">
-        <div style="display:flex;flex-direction:column;gap:11px">
+        <div style="display:flex;flex-direction:column;gap:2px">
           <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.62)">Site</span>
-          <a href="#colour" style="color:rgba(247,245,241,.75);font-size:14px">Colours</a>
-          <a href="#services" style="color:rgba(247,245,241,.75);font-size:14px">Services</a>
-          <a href="#work" style="color:rgba(247,245,241,.75);font-size:14px">Work</a>
-          <a href="#process" style="color:rgba(247,245,241,.75);font-size:14px">Process</a>
+          <a href="#colour" style="color:rgba(247,245,241,.75);font-size:15px;padding:6px 0">Colours</a>
+          <a href="#services" style="color:rgba(247,245,241,.75);font-size:15px;padding:6px 0">Services</a>
+          <a href="#work" style="color:rgba(247,245,241,.75);font-size:15px;padding:6px 0">Work</a>
+          <a href="#process" style="color:rgba(247,245,241,.75);font-size:15px;padding:6px 0">Process</a>
         </div>
-        <div style="display:flex;flex-direction:column;gap:11px">
+        <div style="display:flex;flex-direction:column;gap:2px">
           <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.62)">Services</span>
-          <a href="#services" style="color:rgba(247,245,241,.75);font-size:14px">Metal roofing</a>
-          <a href="#services" style="color:rgba(247,245,241,.75);font-size:14px">Wall cladding</a>
-          <a href="#services" style="color:rgba(247,245,241,.75);font-size:14px">Extensions</a>
-          <a href="#services" style="color:rgba(247,245,241,.75);font-size:14px">Repairs</a>
+          <a href="#services" style="color:rgba(247,245,241,.75);font-size:15px;padding:6px 0">Metal roofing</a>
+          <a href="#services" style="color:rgba(247,245,241,.75);font-size:15px;padding:6px 0">Wall cladding</a>
+          <a href="#services" style="color:rgba(247,245,241,.75);font-size:15px;padding:6px 0">Extensions</a>
+          <a href="#services" style="color:rgba(247,245,241,.75);font-size:15px;padding:6px 0">Repairs</a>
         </div>
-        <div style="display:flex;flex-direction:column;gap:11px">
+        <div style="display:flex;flex-direction:column;gap:2px">
           <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,241,.62)">Where</span>
-          <span style="color:rgba(247,245,241,.75);font-size:14px">Sutherland Shire, NSW</span>
-          <span style="color:rgba(247,245,241,.75);font-size:14px">Illawarra, NSW</span>
-          <a href="mailto:dan@roofsmartroofing.com.au" style="color:rgba(247,245,241,.75);font-size:14px;word-break:break-word">dan@roofsmartroofing.com.au</a>
+          <span style="color:rgba(247,245,241,.75);font-size:15px;padding:6px 0">Sutherland Shire, NSW</span>
+          <span style="color:rgba(247,245,241,.75);font-size:15px;padding:6px 0">Illawarra, NSW</span>
+          <a href="mailto:dan@roofsmartroofing.com.au" style="color:rgba(247,245,241,.75);font-size:14px;padding:6px 0">dan@roofsmartroofing.com.au</a>
         </div>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;padding-top:18px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(247,245,241,.62)">
@@ -499,9 +499,9 @@
   </footer>
 
   <!-- mobile bottom nav -->
-  <div style="position:sticky;bottom:0;z-index:20;overflow:hidden;max-height:max(0px, min(90px, (900px - 100cqw) * 9999));display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(247,245,241,.16);border-top:1px solid rgba(247,245,241,.16)">
-    <a href="tel:0405285207" style="background:#0C0C0B;color:#F7F5F1;text-align:center;padding:19px 0;font-size:15px;font-weight:700">Call Dan</a>
-    <a href="#quote" style="background:#D69B22;color:#100F0E;text-align:center;padding:19px 0;font-size:15px;font-weight:700">Free quote</a>
+  <div style="position:sticky;bottom:0;z-index:20;overflow:hidden;max-height:max(0px, min(90px, (900px - 100cqw) * 9999));display:grid;grid-template-columns:1fr 1fr;gap:1px">
+    <a href="tel:0405285207" style="background:#0C0C0B;color:#F7F5F1;text-align:center;padding:19px 0;font-size:15px;font-weight:700;border-top:1px solid rgba(247,245,241,.16);box-shadow:1px 0 0 rgba(247,245,241,.16)">Call Dan</a>
+    <a href="#quote" style="background:#D69B22;color:#100F0E;text-align:center;padding:19px 0;font-size:15px;font-weight:700;border-top:1px solid rgba(247,245,241,.16)">Free quote</a>
   </div>
 
 </div>
@@ -540,14 +540,13 @@ class Component extends DCLogic {
     };
     window.addEventListener('scroll', this._onScroll, { passive: true });
 
-    const t0 = performance.now();
-    const tick = now => {
-      const k = Math.min(1, (now - t0) / 1400);
+    const t0 = Date.now();
+    this._count = setInterval(() => {
+      const k = Math.min(1, (Date.now() - t0) / 1400);
       const eased = 1 - Math.pow(1 - k, 3);
       this.setState({ years: Math.round(eased * 15) });
-      if (k < 1) this._raf = requestAnimationFrame(tick);
-    };
-    this._raf = requestAnimationFrame(tick);
+      if (k >= 1) clearInterval(this._count);
+    }, 60);
 
     this._rev = setInterval(() => {
       this.setState({ revFade: 0 });
@@ -558,9 +557,14 @@ class Component extends DCLogic {
   componentWillUnmount() {
     if (this._io) this._io.disconnect();
     clearTimeout(this._fallback);
-    cancelAnimationFrame(this._raf);
+    clearInterval(this._count);
     clearInterval(this._rev);
     window.removeEventListener('scroll', this._onScroll);
+  }
+
+  _canHover() {
+    return typeof window !== 'undefined' && window.matchMedia
+      ? window.matchMedia('(hover: hover) and (pointer: fine)').matches : true;
   }
 
   renderVals() {
@@ -608,8 +612,9 @@ class Component extends DCLogic {
       ...j,
       previewH: this.state.hoverJob === i ? 'clamp(180px, 22cqw, 330px)' : '0px',
       rowBg: this.state.hoverJob === i ? '#EFEBE3' : 'transparent',
-      enter: () => this.setState({ hoverJob: i }),
-      leave: () => this.setState(s => (s.hoverJob === i ? { hoverJob: -1 } : null))
+      enter: () => { if (this._canHover()) this.setState({ hoverJob: i }); },
+      leave: () => { if (this._canHover()) this.setState(s => (s.hoverJob === i ? { hoverJob: -1 } : null)); },
+      tap: () => { if (!this._canHover()) this.setState(s => ({ hoverJob: s.hoverJob === i ? -1 : i })); }
     }));
     const steps = [
       { n: '01', t: 'You ring Dan', b: 'Address, rough scope, and when you want it done.' },
